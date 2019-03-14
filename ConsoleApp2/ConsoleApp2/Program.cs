@@ -21,15 +21,14 @@ namespace DelegatesAndEvents
     {
         int Method1(out int i)
         {
+            i = 100;
             System.Console.WriteLine("Method1");
-
-            i = 10;
             return 0;
         }
         public void Method3()
         {
             MyDelegate myDelegate = new MyDelegate(Method1);
-            MyDelegate myDelegate1 = new MyDelegate(Method1);
+            MyDelegate myDelegate1 =null;
             MyDelegate myDelegate2 = myDelegate + myDelegate1;
             int intValue;
             myDelegate2(out intValue);
