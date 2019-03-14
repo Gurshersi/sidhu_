@@ -4,36 +4,72 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DelegatesAndEvents
+namespace BankAccountNS
 {
-    public class Program
+    public class BankAccount
     {
+        private string m_customerName;
+        private double m_balance;
+        private bool m_frozen = false;
+        public double Balance;
+
+        private BankAccount()
+        {
+        }
+        public BankAccount(string customerName, double balance)
+        {
+            m_customerName = customerName;
+            m_balance = balance;
+        }
+        public string CustomerName
+        {
+            get { return m_customerName; }
+        }
+        public void Debit(double amount)
+        {
+            if (m_frozen)
+            {
+                throw new Exception("Account frozen");
+            }
+            if (amount > m_balance)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+            m_balance += amount;
+        }
+
+        public void Credit(double amount)
+        {
+            if (m_frozen)
+            {
+                throw new Exception("Account frozen");
+            }
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("amount");
+            }
+
+            m_balance += amount;
+        }
+        private void FreezeAccount()
+        {
+            m_frozen = true;
+        }
+        private void UnfreezeAccount()
+        {
+            m_frozen = false;
+        }
         public static void Main()
         {
-            DelegateExercises delegateExercises = new DelegateExercises();
-            delegateExercises.Method3();
-            Console.ReadLine();
+            BankAccount ba = new BankAccount("Mr. Bryan Walton", 11.99);
+
+            ba.Credit(5.77);
+            ba.Debit(11.22);
+            Console.WriteLine("Current balance is ${0}", ba.m_balance);
         }
     }
-
-    public delegate void MyDelegate(ref int intValue);
-    public class DelegateExercises
-    {
-        void Method1(ref int intValue)
-        {
-            intValue = intValue + 5;
-            System.Console.WriteLine("Method1" + intValue);
-
-        }
-        public void Method3()
-        {
-            MyDelegate myDelegate = new MyDelegate(Method1);
-            MyDelegate myDelegate1 = new MyDelegate(Method1);
-            MyDelegate myDelegate2 = myDelegate + myDelegate1;
-            int intParameter = 5;
-            myDelegate2(ref intParameter);
-        }
-    }
-}  
-
-       
+}
