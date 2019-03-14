@@ -25,6 +25,9 @@ namespace BankAccountNS
         {
             get { return m_customerName; }
         }
+
+        public static string DebitAmountLessThanZeroMessage { get; set; }
+
         public void Debit(double amount)
         {
             if (m_frozen)
