@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //student name gursher singh, tanveer singh//
-// student id 715837 716490
+// student id 715837 716490//
 namespace BankAccountNS
 {
     public class BankAccount
